@@ -1,10 +1,14 @@
 import time
 import board
 import neopixel
-import random
 
 from eye import Eye
-from blink_patterns.loading_pattern import LoadingPattern
+from blink_patterns.blink_pattern import *
+from blink_patterns.loading_pattern import *
+from blink_patterns.strobe_pattern import *
+from color_patterns.rainbow_pattern import RainbowPattern
+from color_patterns.solid_color_pattern import *
+from color_patterns.random_pattern import *
  
  
 # On CircuitPlayground Express, and boards with built in status NeoPixel -> board.NEOPIXEL
@@ -15,78 +19,35 @@ pixel_pin = board.D18
 #pixel_pin = board.D18
  
 # The number of NeoPixels
-num_pixels = 32
+nbPixelsPerRing = 16
+nbRings = 2
+nbPixels = nbRings * nbPixelsPerRing
  
 # The order of the pixel colors - RGB or GRB. Some NeoPixels have red and green reversed!
 # For RGBW NeoPixels, simply change the ORDER to RGBW or GRBW.
 ORDER = neopixel.GRB
  
-pixels = neopixel.NeoPixel(pixel_pin, num_pixels, brightness=0.2, auto_write=False,
+pixels = neopixel.NeoPixel(pixel_pin, nbPixels, brightness=0.2, auto_write=False,
                            pixel_order=ORDER)
- 
- 
-def wheel(pos):
-    # Input a value 0 to 255 to get a color value.
-    # The colours are a transition r - g - b - back to r.
-    if pos < 0 or pos > 255:
-        r = g = b = 0
-    elif pos < 85:
-        r = int(pos * 3)
-        g = int(255 - pos*3)
-        b = 0
-    elif pos < 170:
-        pos -= 85
-        r = int(255 - pos*3)
-        g = 0
-        b = int(pos*3)
-    else:
-        pos -= 170
-        r = 0
-        g = int(pos*3)
-        b = int(255 - pos*3)
-    return (r, g, b) if ORDER == neopixel.RGB or ORDER == neopixel.GRB else (r, g, b, 0)
- 
- 
-def rainbow_cycle(wait):
-    for j in range(255):
-        for i in range(num_pixels):
-            pixel_index = (i * 256 // num_pixels) + j
-            pixels[i] = wheel(pixel_index & 255)
-        pixels.show()
-        time.sleep(wait)
 
-def strob_random(waitOff, waitOn):
-    pixels[random.randint(0, num_pixels-1)] = (255, 255, 255)
-    pixels[random.randint(0, num_pixels-1)] = (255, 255, 255)
-    pixels.show()
-    time.sleep(waitOn)
-    pixels.fill((0, 0, 0))
-    pixels.show()
-    time.sleep(waitOff)
 
-def strob_blink(waitOff, waitOn):
-    pixels.fill((255, 255, 255))
-    pixels.show()
-    time.sleep(waitOn)
-    pixels.fill((0, 0, 0))
-    pixels.show()
-    time.sleep(waitOff)
+rightEye = Eye(pixels, 0, nbPixelsPerRing, 0) #4
+leftEye = Eye(pixels, 16, nbPixelsPerRing, 14) #2
 
-def loadingPattern(): 
-    rightEye = Eye(pixels, 0, 4)
-    leftEye = Eye(pixels, 16, 2)
+wPatterns = [
+    #StrobeBlinkPattern(pixels, list(range(0, nbPixels)), 0.02, 0.07),
+    #StrobeRandomPattern(pixels, list(range(0, nbPixels)), 0.0005, 0.02),
+    #LoadingPattern(pixels, leftEye.getPixelsIndex()),
+    #LoadingPattern(pixels, rightEye.getPixelsIndex()),
+    LoadingPatternReverse(pixels, leftEye.getPixelsIndex(), RandomPattern()),
+    LoadingPatternReverse(pixels, rightEye.getPixelsIndex(), RandomPattern()),
+]
 
-    leftEye.setPattern(LoadingPattern(pixels, leftEye.getPixelsIndex()))
-    rightEye.setPattern(LoadingPattern(pixels, rightEye.getPixelsIndex()))
 
-    for i in range(16):
-        leftEye.run()
-        rightEye.run()
-        time.sleep(0.1)
-
-loadingPattern()
-
-#while True:
+while True:
     #rainbow_cycle(0.001)    # rainbow cycle with 1ms delay per step
-    #strob_random(0.02, 0.0005)
-    #strob_blink(0.07, 0.02)
+
+    for wPattern in wPatterns:
+        wPattern.runIteration()
+        if not issubclass(wPattern.__class__, IBlinkTimePattern):
+            time.sleep(0.04)
