@@ -1,15 +1,10 @@
 import abc
 
-class IBlinkPattern(abc.ABC):
-    @abc.abstractmethod
-    def __init__(self, pixels, pixelsIndex):
-        pass
-
-    @abc.abstractmethod
+class BaseBlinkPattern(abc.ABC):
+    @abc.abstractclassmethod
     def runIteration(self):
         pass
 
-class IBlinkTimePattern(IBlinkPattern):
-    @abc.abstractclassmethod
-    def __init__(self, pixels, pixelsIndex, time1, time2):
-        pass
+class BlinkPatternWithColor:
+    def setColorPattern(self, color):
+        self.mColorPattern = color

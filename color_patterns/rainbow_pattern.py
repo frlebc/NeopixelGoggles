@@ -2,14 +2,11 @@ from color_patterns.color_pattern import IColorPattern
 
 import board
 import neopixel
+import random
 
 ORDER = neopixel.GRB
- 
-class RainbowPattern(IColorPattern):
-    def getColor(self, iter):
-        return self.wheel(iter & 255)
 
-    def wheel(self, pos):
+def wheel(pos):
         # Input a value 0 to 255 to get a color value.
         # The colours are a transition r - g - b - back to r.
         if pos < 0 or pos > 255:
@@ -29,3 +26,11 @@ class RainbowPattern(IColorPattern):
             g = int(pos*3)
             b = int(255 - pos*3)
         return (r, g, b) if ORDER == neopixel.RGB or ORDER == neopixel.GRB else (r, g, b, 0) #TODO abstract RGB order somewhere else to easily apply to all color patterns
+ 
+class RainbowPattern(IColorPattern):
+    def getColor(self, iter):
+        return wheel(iter & 255)
+
+class RandomPattern(IColorPattern):
+    def getColor(self, iter):
+        return wheel(random.randint(0, 255))

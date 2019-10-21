@@ -1,16 +1,17 @@
-from blink_patterns.blink_pattern import IBlinkPattern
+from blink_patterns.blink_pattern import BaseBlinkPattern, BlinkPatternWithColor
 
-from color_patterns.rainbow_pattern import *
+import time
 
-class LoadingPattern(IBlinkPattern):
+class LoadingPattern(BaseBlinkPattern, BlinkPatternWithColor):
     cNbCyclesForPattern = 2
 
-    def __init__(self, pixels, pixelsIndex, color):
+    def __init__(self, pixels, pixelsIndex, color, time):
         self.mPixels = pixels
         self.mPixelsIndex = pixelsIndex
         self.mIterationCount = 0
-        self.mNbCycle = len(pixelsIndex) * LoadingPattern.cNbCyclesForPattern
+        self.mNbCycle = len(pixelsIndex) * self.cNbCyclesForPattern
         self.mColorPattern = color
+        self.mTime = time
 
     def runIteration(self):
         wCycleIter = self.getCycleIter()
@@ -26,6 +27,8 @@ class LoadingPattern(IBlinkPattern):
         self.mIterationCount += 1
         self.mIterationCount %= self.mNbCycle
 
+        time.sleep(self.mTime)
+
     def getCycleIter(self):
         return self.mIterationCount % len(self.mPixelsIndex)
 
@@ -36,3 +39,10 @@ class LoadingPattern(IBlinkPattern):
 class LoadingPatternReverse(LoadingPattern):
     def getCycleIter(self):
         return (len(self.mPixelsIndex) - 1) - (self.mIterationCount % len(self.mPixelsIndex))
+
+class LoadingPatternHalf(LoadingPattern):
+    cNbCyclesForPattern = 1
+
+class LoadingPatternHalfReverse(LoadingPatternReverse):
+    cNbCyclesForPattern = 1
+
