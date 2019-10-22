@@ -17,6 +17,7 @@ ColorPatterns = [
     AlternateColors([YELLOW, PURPLE]),
     AlternateColors([BLUE, WHITE]),
     AlternateColors([BLUE, RED]),
+    AlternateColors([BLUE, WHITE, RED, WHITE]),
     AlternateColors([CYAN, GREEN]),
     AlternateColors([YELLOW, RED, ORANGE]),
     AlternateColors([MAGENTA, GREEN]),
