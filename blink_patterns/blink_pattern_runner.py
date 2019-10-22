@@ -1,9 +1,9 @@
-from blink_patterns.blink_pattern import BaseBlinkPattern
+from blink_patterns.blink_pattern import BaseBlinkPattern, BlinkPatternWithColor
 from neopixel_hardware import neopixelAllOff
 
 import time
 
-class BlinkPatternRunner:
+class BlinkPatternRunner(BlinkPatternWithColor):
     def __init__(self, blinkPatterns, nbRepeat):
         self.mPatterns = blinkPatterns
         self.mNbRepeat = nbRepeat
@@ -12,7 +12,8 @@ class BlinkPatternRunner:
         for i in range(0, self.mNbRepeat):
             for wPattern in self.mPatterns:
                 wPattern.runIteration()
-        #neopixelAllOff()
+        neopixelAllOff()
 
-    def getPatterns(self):
-        return self.mPatterns
+    def setColorPattern(self, color):
+        for wPattern in self.mPatterns:
+            wPattern.setColorPattern(color)

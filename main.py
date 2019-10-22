@@ -12,10 +12,7 @@ while True:
     random.shuffle(wPatterns)
 
     for wRunner in wPatterns:
-        wColor = random.choice(ColorPatterns) #TODO if wColor is a 2-eye pattern (ex: rainbow): apply on both, otherwise have a different for each ring
-        for wPattern in wRunner.getPatterns():
-            if wPattern is BlinkPatternWithColor:
-                wPattern.setColorPattern(wColor)
+        wRunner.setColorPattern(random.choice(ColorPatterns)) #TODO if wColor is a 2-eye pattern (ex: rainbow): apply on both, otherwise have a different for each ring
 
     for wRunner in wPatterns:
         wRunner.run()
