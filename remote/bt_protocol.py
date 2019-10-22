@@ -4,5 +4,9 @@ class BtProto:
     def __init__(self, q):
         self.mQueue = q
 
-    def getQueue(self):
-        return self.mQueue
+    def read(self):
+        if self.mQueue.empty():
+            return None
+
+        cmd = self.mQueue.get(False)
+        print("Command: ", cmd)

@@ -28,4 +28,5 @@ while True:
         wRunner.setColorPattern(random.choice(ColorPatterns)) #TODO if wColor is a 2-eye pattern (ex: rainbow): apply on both, otherwise have a different for each ring
 
     for wRunner in wPatterns:
+        btProto.read()
         wRunner.run()
