@@ -17,9 +17,3 @@ class Eye:
 
     def run(self):
         self.mPattern.runIteration()
-
-    def loadingPatternUpper(self):
-        for i in reversed(self.mPixelsIndex[8:16]): #todo should use num_pixels constant instead
-            self.mPixels[i] = (255, 255, 255)
-            self.mPixels.show()
-            time.sleep(0.1)

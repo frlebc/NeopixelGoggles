@@ -1,4 +1,6 @@
 from color_provider import ColorProviderInstance
+from pattern_provider import PatternProviderInstance
+from blink_patterns.time_factor import TimeFactorInstance
 
 def BtHandlerColorPreset(value):
     ColorProviderInstance.setColorPreset(value)
@@ -10,14 +12,18 @@ def BtHandlerRGB(value):
         ColorProviderInstance.setColorRGB(rgbTuple)
 
 def BtHandlerPatternPreset(value):
-    print("PatternPreset: ", value)
+    PatternProviderInstance.setPattern(value)
 
 def BtHandlerPattern(value):
     print("Pattern: ", value)
 
+def BtHandlerSpeed(value):
+    TimeFactorInstance.setFactor(float(value))
+
 BtProtocolHandlers = {
-    "cp":BtHandlerColorPreset,
+    "col":BtHandlerColorPreset,
     "rgb":BtHandlerRGB,
-    "pl":BtHandlerPatternPreset,
+    "pat":BtHandlerPatternPreset,
     "p":BtHandlerPattern,
+    "speed":BtHandlerSpeed,
 }

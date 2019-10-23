@@ -1,8 +1,7 @@
 from blink_patterns.blink_pattern import BaseBlinkPattern, BlinkPatternWithColor
+from blink_patterns.time_factor import TimeFactorInstance
 
 from color_patterns.rainbow_pattern import RainbowPattern
-
-import time
 
 class FullOnRainbowPattern(BaseBlinkPattern):
     def __init__(self, pixels, pixelsIndex, time):
@@ -20,7 +19,7 @@ class FullOnRainbowPattern(BaseBlinkPattern):
             wIndex = self.mPixelsIndex[i]
             self.mPixels[wIndex] = self.mRainbow.getColor(wColorIndex)
         self.mPixels.show()
-        time.sleep(self.mTime)
+        TimeFactorInstance.sleep(self.mTime)
 
         self.mIterationCount += 1
         self.mIterationCount %= self.mNbCycle

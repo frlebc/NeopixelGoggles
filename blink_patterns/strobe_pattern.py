@@ -1,7 +1,7 @@
 from blink_patterns.blink_pattern import BaseBlinkPattern, BlinkPatternWithColor
+from blink_patterns.time_factor import TimeFactorInstance
 
 import random
-import time
 
 class StrobeRandomPattern(BaseBlinkPattern, BlinkPatternWithColor):
     cNbPixelsPerIteration = 2
@@ -18,11 +18,11 @@ class StrobeRandomPattern(BaseBlinkPattern, BlinkPatternWithColor):
             wIndex = self.mPixelsIndex[random.randint(0, len(self.mPixelsIndex)-1)]
             self.mPixels[wIndex] =  self.mColorPattern.getColor(random.randint(0, 255))
         self.mPixels.show()
-        time.sleep(self.mTimeOn)
+        TimeFactorInstance.sleep(self.mTimeOn)
         for i in self.mPixelsIndex:
             self.mPixels[i] = (0, 0, 0)
         self.mPixels.show()
-        time.sleep(self.mTimeOff)
+        TimeFactorInstance.sleep(self.mTimeOff)
 
     
 
@@ -39,8 +39,20 @@ class StrobeBlinkPattern(BaseBlinkPattern, BlinkPatternWithColor):
         for i in self.mPixelsIndex:
             self.mPixels[i] = self.mColorPattern.getColor(i)
         self.mPixels.show()
-        time.sleep(self.mTimeOn)
+        TimeFactorInstance.sleep(self.mTimeOn)
         for i in self.mPixelsIndex:
             self.mPixels[i] = (0, 0, 0)
         self.mPixels.show()
-        time.sleep(self.mTimeOff)
+        TimeFactorInstance.sleep(self.mTimeOff)
+
+class StrobeBlinkPausePattern(StrobeBlinkPattern):
+    def __init__(self, pixels, pixelsIndex, color, time1, time2, time3):
+        self.mIterationCount = 0
+        self.mTimeSleep = time3
+        super().__init__(pixels, pixelsIndex, color, time1, time2)
+
+    def runIteration(self):
+        self.mIterationCount += 1
+        if (self.mIterationCount % 4) == 0:
+            TimeFactorInstance.sleep(self.mTimeSleep)
+        super().runIteration()

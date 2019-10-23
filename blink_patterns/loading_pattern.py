@@ -1,6 +1,5 @@
 from blink_patterns.blink_pattern import BaseBlinkPattern, BlinkPatternWithColor
-
-import time
+from blink_patterns.time_factor import TimeFactorInstance
 
 class LoadingPattern(BaseBlinkPattern, BlinkPatternWithColor):
     cNbCyclesForPattern = 2
@@ -27,7 +26,7 @@ class LoadingPattern(BaseBlinkPattern, BlinkPatternWithColor):
         self.mIterationCount += 1
         self.mIterationCount %= self.mNbCycle
 
-        time.sleep(self.mTime)
+        TimeFactorInstance.sleep(self.mTime)
 
     def getCycleIter(self):
         return self.mIterationCount % len(self.mPixelsIndex)

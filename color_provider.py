@@ -6,7 +6,7 @@ from color_patterns.solid_color_pattern import RGBPattern
 class ColorProvider:
     def __init__(self):
         self.mColor = random.choice(ColorPatterns)
-        self.mRandom = False
+        self.mRandom = True
 
     def getColor(self):
         if self.mRandom:

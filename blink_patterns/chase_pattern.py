@@ -1,6 +1,5 @@
 from blink_patterns.blink_pattern import BaseBlinkPattern, BlinkPatternWithColor
-
-import time
+from blink_patterns.time_factor import TimeFactorInstance
 
 class ChasePattern(BaseBlinkPattern, BlinkPatternWithColor):
     def __init__(self, pixels, pixelsIndex, color, nbPixelsSimultaneous, time):
@@ -23,7 +22,7 @@ class ChasePattern(BaseBlinkPattern, BlinkPatternWithColor):
         self.mIterationCount += 1
         self.mIterationCount % len(self.mPixelsIndex)
 
-        time.sleep(self.mTime)
+        TimeFactorInstance.sleep(self.mTime)
 
     def getPixelsToLight(self):
         wIndices = []

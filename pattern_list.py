@@ -4,7 +4,7 @@ from blink_patterns.loading_pattern import *
 from blink_patterns.strobe_pattern import *
 from blink_patterns.chase_pattern import *
 
-from full_on_patterns.full_on_pattern import FullOnRainbowPattern
+from full_on_patterns.full_on_pattern import FullOnRainbowPattern #TODO create a list of preset pattern+color
 
 from color_patterns.rainbow_pattern import *
 from color_patterns.solid_color_pattern import *
@@ -12,140 +12,123 @@ from color_patterns.solid_color_pattern import *
 from neopixel_hardware import *
 
 
-wPatterns = [
+PatternsDict = {
     # Strobe
-    BlinkPatternRunner([
+    "strobe":BlinkPatternRunner([
         StrobeBlinkPattern(pixels, list(range(0, nbPixels)), BluePattern(), 0.02, 0.07),
     ], 8),
-
-    BlinkPatternRunner([
-        StrobeBlinkPattern(pixels, list(range(0, nbPixels)), BluePattern(), 0.02, 0.07),
+    
+    "strobe.pause":BlinkPatternRunner([
+        StrobeBlinkPausePattern(pixels, list(range(0, nbPixels)), BluePattern(), 0.02, 0.07, 1),
     ], 8),
 
-    BlinkPatternRunner([
+    "strobe.random.long":BlinkPatternRunner([
         StrobeRandomPattern(pixels, list(range(0, nbPixels)), RandomPattern(), 0.01, 0.01),
-    ], 2* nbPixels),
+    ], 2 * nbPixels),
 
-    BlinkPatternRunner([
-        StrobeRandomPattern(pixels, list(range(0, nbPixels)), RandomPattern(), 0.01, 0.01),
-    ], nbPixels),
-
-    BlinkPatternRunner([
+    "strobe.random":BlinkPatternRunner([
         StrobeRandomPattern(pixels, list(range(0, nbPixels)), RandomPattern(), 0.01, 0.01),
     ], nbPixels),
 
     # Loading
-    BlinkPatternRunner([
+    "load.full":BlinkPatternRunner([
         LoadingPattern(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 0.03),
         LoadingPattern(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 0.03),
     ], nbPixels),
 
-    BlinkPatternRunner([
-        LoadingPattern(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 0.03),
-        LoadingPattern(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 0.03),
-    ], nbPixelsPerRing),
-
-    BlinkPatternRunner([
+    "load.full.reverse":BlinkPatternRunner([
         LoadingPatternReverse(pixels, leftEye.getPixelsIndex(), MagentaPattern(), 0.03),
         LoadingPatternReverse(pixels, rightEye.getPixelsIndex(), OrangePattern(), 0.03),
     ], nbPixels),
 
-    BlinkPatternRunner([
+    "load.full.opposite":BlinkPatternRunner([
         LoadingPattern(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 0.03),
         LoadingPatternReverse(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 0.03),
     ], nbPixels),
 
-    BlinkPatternRunner([
+    "load.full.opposite.reverse":BlinkPatternRunner([
         LoadingPatternReverse(pixels, leftEye.getPixelsIndex(), MagentaPattern(), 0.03),
         LoadingPattern(pixels, rightEye.getPixelsIndex(), OrangePattern(), 0.03),
     ], nbPixels),
 
-    BlinkPatternRunner([
+    "load.half":BlinkPatternRunner([
         LoadingPatternHalf(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 0.03),
         LoadingPatternHalf(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 0.03),
     ], nbPixelsPerRing),
 
-    BlinkPatternRunner([
+    "load.half.reverse":BlinkPatternRunner([
         LoadingPatternHalfReverse(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 0.03),
         LoadingPatternHalfReverse(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 0.03),
     ], nbPixelsPerRing),
 
-    BlinkPatternRunner([
+    "load.half.opposite":BlinkPatternRunner([
         LoadingPatternHalf(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 0.03),
         LoadingPatternHalfReverse(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 0.03),
     ], nbPixelsPerRing),
 
-    BlinkPatternRunner([
+    "load.half.opposite.reverse":BlinkPatternRunner([
         LoadingPatternHalfReverse(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 0.03),
         LoadingPatternHalf(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 0.03),
     ], nbPixelsPerRing),
 
     # Chase
-    BlinkPatternRunner([
+    "chase.1":BlinkPatternRunner([
         ChasePattern(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 1, 0.02),
         ChasePattern(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 1, 0.02)
-    ], nbPixelsPerRing),
+    ], nbPixels),
 
-    BlinkPatternRunner([
+    "chase.2":BlinkPatternRunner([
         ChasePattern(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 2, 0.03),
         ChasePattern(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 2, 0.03)
-    ], nbPixelsPerRing),
+    ], nbPixels),
 
-    BlinkPatternRunner([
+    "chase.4":BlinkPatternRunner([
         ChasePattern(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 4, 0.03),
         ChasePattern(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 4, 0.03)
     ], nbPixels),
 
-    BlinkPatternRunner([
+    "chase.1.reverse":BlinkPatternRunner([
         ChasePatternReverse(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 1, 0.02),
         ChasePatternReverse(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 1, 0.02),
-    ], nbPixelsPerRing),
+    ], nbPixels),
 
-    BlinkPatternRunner([
+    "chase.2.reverse":BlinkPatternRunner([
         ChasePatternReverse(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 2, 0.03),
         ChasePatternReverse(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 2, 0.03),
-    ], nbPixelsPerRing),
+    ], nbPixels),
 
-    BlinkPatternRunner([
+    "chase.4.reverse":BlinkPatternRunner([
         ChasePatternReverse(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 4, 0.03),
         ChasePatternReverse(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 4, 0.03),
     ], nbPixels),
 
-    BlinkPatternRunner([
+    "chase.1.opposite":BlinkPatternRunner([
         ChasePattern(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 1, 0.03),
         ChasePatternReverse(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 1, 0.03)
-    ], nbPixelsPerRing),
+    ], nbPixels),
 
-    BlinkPatternRunner([
+    "chase.2.opposite":BlinkPatternRunner([
         ChasePattern(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 2, 0.03),
         ChasePatternReverse(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 2, 0.03)
-    ], nbPixelsPerRing),
+    ], nbPixels),
 
-    BlinkPatternRunner([
+    "chase.4.opposite":BlinkPatternRunner([
         ChasePattern(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 4, 0.03),
         ChasePatternReverse(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 4, 0.03)
     ], nbPixels),
 
-    BlinkPatternRunner([
+    "chase.1.opposite.reverse":BlinkPatternRunner([
         ChasePatternReverse(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 1, 0.02),
         ChasePattern(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 1, 0.02),
     ], nbPixelsPerRing),
 
-    BlinkPatternRunner([
+    "chase.2.opposite.reverse":BlinkPatternRunner([
         ChasePatternReverse(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 2, 0.03),
         ChasePattern(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 2, 0.03),
     ], nbPixelsPerRing),
 
-    BlinkPatternRunner([
+    "chase.4.opposite.reverse":BlinkPatternRunner([
         ChasePatternReverse(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 4, 0.03),
         ChasePattern(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 4, 0.03),
     ], nbPixels),
-
-]
-
-wPatternsTest = [
-    BlinkPatternRunner([
-        FullOnRainbowPattern(pixels, leftEye.getPixelsIndex(), 0.03),
-        FullOnRainbowPattern(pixels, rightEye.getPixelsIndex(), 0.03),
-    ], nbPixelsPerRing),
-]
+}
