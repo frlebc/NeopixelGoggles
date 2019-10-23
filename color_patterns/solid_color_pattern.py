@@ -45,3 +45,9 @@ class PurplePattern(IColorPattern):
 class OrangePattern(IColorPattern):
     def getColor(self, iter):
         return ORANGE
+
+class RGBPattern(IColorPattern):
+    def __init__(self, rgbTuple):
+        self.mRGBTuple = rgbTuple
+    def getColor(self, iter):
+        return self.mRGBTuple

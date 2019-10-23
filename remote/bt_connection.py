@@ -24,8 +24,9 @@ class BtConnection(threading.Thread):
                 data = wClientSocket.recv(256)
                 #print("Received: ", data)
                 if data == b'\r\n' or data == b'\n':
-                    self.mQueue.put(''.join(self.mData.copy()))
-                    self.mData.clear()
+                    if self.mData:
+                        self.mQueue.put(''.join(self.mData.copy()))
+                        self.mData.clear()
                 else:
                     self.mData.append(data.decode())
             except:

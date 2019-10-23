@@ -30,3 +30,17 @@ ColorPatterns = [
     AlternateColors([CYAN, ORANGE]),
     AlternateColors([CYAN, PURPLE]),
 ]
+
+ColorDict = {
+    "white":WhitePattern(),
+    "red":RedPattern(),
+    "green":GreenPattern(),
+    "blue":BluePattern(),
+    "yellow":YellowPattern(),
+    "magenta":MagentaPattern(),
+    "cyan":CyanPattern(),
+    "purple":PurplePattern(),
+    "orange":OrangePattern(),
+    "rainbow":RainbowPattern(),
+    "random":RandomPattern(),
+}

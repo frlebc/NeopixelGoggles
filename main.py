@@ -10,6 +10,8 @@ from neopixel_hardware import *
 from remote.bt_connection import BtConnection
 from remote.bt_protocol import BtProto
 
+from color_provider import *
+
 #TODO implement a clean signal handler
 #signal.signal(signal.SIGINT, self.stopSignalHandler)
 #signal.signal(signal.SIGTERM, self.stopSignalHandler)
@@ -24,9 +26,10 @@ btProto = BtProto(q)
 while True:
     random.shuffle(wPatterns)
 
-    for wRunner in wPatterns:
-        wRunner.setColorPattern(random.choice(ColorPatterns)) #TODO if wColor is a 2-eye pattern (ex: rainbow): apply on both, otherwise have a different for each ring
+    #for wRunner in wPatterns:
+    #    wRunner.setColorPattern(random.choice(ColorPatterns)) #TODO if wColor is a 2-eye pattern (ex: rainbow): apply on both, otherwise have a different for each ring
 
     for wRunner in wPatterns:
         btProto.read()
+        wRunner.setColorPattern(ColorProviderInstance.getColor())
         wRunner.run()
