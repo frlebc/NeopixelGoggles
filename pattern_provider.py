@@ -15,6 +15,6 @@ class PatternProvider:
     def setPattern(self, patternKey):
         self.mRandom = (patternKey == "fullrandom")
         if patternKey in PatternsDict:
-            self.mColor = PatternsDict[patternKey]
+            self.mPattern = PatternsDict[patternKey]
     
 PatternProviderInstance = PatternProvider()
