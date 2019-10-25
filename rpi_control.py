@@ -1,3 +1,5 @@
+from neopixel_hardware import neopixelAllOff
+
 import os
 
 def reboot():
@@ -8,6 +10,8 @@ def poweroff():
 
 def rpiControl(value):
     if value == "poweroff":
+        neopixelAllOff()
         poweroff()
     elif value == "reboot":
+        neopixelAllOff()
         reboot()
