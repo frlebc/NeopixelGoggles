@@ -14,10 +14,10 @@ from neopixel_hardware import *
 
 PatternsDict = {
     # Strobe
-    "strobe":BlinkPatternRunner([
+    "strobe.full":BlinkPatternRunner([
         StrobeBlinkPattern(pixels, list(range(0, nbPixels)), BluePattern(), 0.02, 0.07),
     ], 8),
-    
+
     "strobe.pause":BlinkPatternRunner([
         StrobeBlinkPausePattern(pixels, list(range(0, nbPixels)), BluePattern(), 0.02, 0.07, 1),
     ], 8),

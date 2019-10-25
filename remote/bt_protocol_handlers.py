@@ -1,6 +1,7 @@
 from color_provider import ColorProviderInstance
 from pattern_provider import PatternProviderInstance
 from blink_patterns.time_factor import TimeFactorInstance
+from rpi_control import rpiControl
 
 def BtHandlerLed(value):
     ColorProviderInstance.setLedOn(value != "off")
@@ -23,6 +24,9 @@ def BtHandlerPattern(value):
 def BtHandlerSpeed(value):
     TimeFactorInstance.setFactor(float(value))
 
+def BtHandlerRpiControl(value):
+    rpiControl(value)
+
 BtProtocolHandlers = {
     "led":BtHandlerLed,
     "col":BtHandlerColorPreset,
@@ -30,4 +34,5 @@ BtProtocolHandlers = {
     "pat":BtHandlerPatternPreset,
     "p":BtHandlerPattern,
     "speed":BtHandlerSpeed,
+    "rpi":BtHandlerRpiControl,
 }

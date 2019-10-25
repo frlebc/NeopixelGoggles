@@ -13,24 +13,35 @@ from remote.bt_protocol import BtProto
 from color_provider import *
 from pattern_provider import *
 
-#TODO implement a clean signal handler
-#signal.signal(signal.SIGINT, self.stopSignalHandler)
-#signal.signal(signal.SIGTERM, self.stopSignalHandler)
+def initSequence():
+    for i in range(0,5):
+        neopixelAllOnWhite()
+        time.sleep(0.07)
+        neopixelAllOff()
+        time.sleep(0.12)
 
-#BtConnection() #This automatically starts the receiving thread
+def main():
+    #TODO implement a clean signal handler
+    #signal.signal(signal.SIGINT, self.stopSignalHandler)
+    #signal.signal(signal.SIGTERM, self.stopSignalHandler)
 
-q = queue.Queue()
-btConnection = BtConnection(q).start()
-btProto = BtProto(q)
+    #BtConnection() #This automatically starts the receiving thread
+
+    q = queue.Queue()
+    btConnection = BtConnection(q).start()
+    btProto = BtProto(q)
+
+    initSequence()
+
+    while True:
+        btProto.read()
+        if ColorProviderInstance.getLedOn() :
+            pat = PatternProviderInstance.getPattern()
+            pat.setColorPattern(ColorProviderInstance.getColor())
+            pat.run()
+        else:
+            neopixelAllOff()
+            time.sleep(0.25)
 
 
-while True:
-    btProto.read()
-    if ColorProviderInstance.getLedOn() :
-        pat = PatternProviderInstance.getPattern()
-        pat.setColorPattern(ColorProviderInstance.getColor())
-        pat.run()
-    else:
-        pixels.fill((0,0,0))
-        pixels.show()
-        time.sleep(0.25)
+main()

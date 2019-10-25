@@ -24,3 +24,8 @@ leftEye = Eye(pixels, 16, nbPixelsPerRing, 14) #2
 
 def neopixelAllOff():
     pixels.fill((0, 0, 0))
+    pixels.show()
+
+def neopixelAllOnWhite():
+    pixels.fill((255, 255, 255))
+    pixels.show();

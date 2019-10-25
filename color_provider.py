@@ -7,7 +7,7 @@ class ColorProvider:
     def __init__(self):
         self.mColor = random.choice(ColorPatterns)
         self.mRandom = True
-        self.mLedOn = True
+        self.mLedOn = False
 
     def getColor(self):
         if self.mRandom:

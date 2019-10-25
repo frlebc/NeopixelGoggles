@@ -10,7 +10,7 @@ class BlinkPatternRunner(BlinkPatternWithColor):
         for i in range(0, self.mNbRepeat):
             for wPattern in self.mPatterns:
                 wPattern.runIteration()
-        #neopixelAllOff()
+        neopixelAllOff()
 
     def setColorPattern(self, color):
         for wPattern in self.mPatterns:
