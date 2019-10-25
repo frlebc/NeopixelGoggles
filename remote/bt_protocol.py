@@ -6,20 +6,18 @@ class BtProto:
         self.mQueue = q
 
     def read(self):
-        if self.mQueue.empty():
-            return None
+        while not self.mQueue.empty():
+            cmd = self.mQueue.get(False)
+            #print("Command: ", cmd)
 
-        cmd = self.mQueue.get(False)
-        #print("Command: ", cmd)
-
-        if self.isValidCommandSyntax(cmd):
-            dotIndex = cmd.index(".")
-            opcode = cmd[:dotIndex]
-            value = cmd[dotIndex+1:]
-            #print("Opcode: ", opcode)
-            #print("Value: ", value)
-            if opcode in BtProtocolHandlers:
-                BtProtocolHandlers[opcode](value)
+            if self.isValidCommandSyntax(cmd):
+                dotIndex = cmd.index(".")
+                opcode = cmd[:dotIndex]
+                value = cmd[dotIndex+1:]
+                #print("Opcode: ", opcode)
+                #print("Value: ", value)
+                if opcode in BtProtocolHandlers:
+                    BtProtocolHandlers[opcode](value)
 
     def isValidCommandSyntax(self, cmd):
         return "." in cmd #Only restriction in syntax for now

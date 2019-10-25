@@ -7,6 +7,7 @@ class ColorProvider:
     def __init__(self):
         self.mColor = random.choice(ColorPatterns)
         self.mRandom = True
+        self.mLedOn = True
 
     def getColor(self):
         if self.mRandom:
@@ -20,5 +21,12 @@ class ColorProvider:
     
     def setColorRGB(self, rgbTuple):
         self.mColor = RGBPattern(rgbTuple)
+        self.mRandom = False
+
+    def setLedOn(self, isLedOn):
+        self.mLedOn = isLedOn
+
+    def getLedOn(self):
+        return self.mLedOn
 
 ColorProviderInstance = ColorProvider()

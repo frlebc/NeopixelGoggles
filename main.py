@@ -2,6 +2,7 @@ import random
 import board
 import neopixel
 import queue
+import time
 
 from blink_patterns.blink_pattern import BlinkPatternWithColor
 from color_pattern_list import ColorPatterns
@@ -25,6 +26,11 @@ btProto = BtProto(q)
 
 while True:
     btProto.read()
-    pat = PatternProviderInstance.getPattern()
-    pat.setColorPattern(ColorProviderInstance.getColor())
-    pat.run()
+    if ColorProviderInstance.getLedOn() :
+        pat = PatternProviderInstance.getPattern()
+        pat.setColorPattern(ColorProviderInstance.getColor())
+        pat.run()
+    else:
+        pixels.fill((0,0,0))
+        pixels.show()
+        time.sleep(0.25)
