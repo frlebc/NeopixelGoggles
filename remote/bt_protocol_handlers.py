@@ -4,6 +4,7 @@ from blink_patterns.time_factor import TimeFactorInstance
 from rpi_control import rpiControl
 
 def BtHandlerLed(value):
+    print("led ", value)
     ColorProviderInstance.setLedOn(value != "off")
 
 def BtHandlerColorPreset(value):

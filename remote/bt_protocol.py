@@ -1,9 +1,11 @@
 from queue import Queue
 from remote.bt_protocol_handlers import *
+from remote.bt_connection import BtConnection
 
 class BtProto:
-    def __init__(self, q):
+    def __init__(self, q, connection):
         self.mQueue = q
+        self.mBtConnection = connection
 
     def read(self):
         while not self.mQueue.empty():
@@ -21,4 +23,7 @@ class BtProto:
 
     def isValidCommandSyntax(self, cmd):
         return "." in cmd #Only restriction in syntax for now
+
+    def writeTemperature(self, temp):
+        self.mBtConnection.write("temp.%.2f"%temp)
 

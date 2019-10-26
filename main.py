@@ -9,6 +9,7 @@ from color_pattern_list import ColorPatterns
 from neopixel_hardware import *
 from remote.bt_connection import BtConnection
 from remote.bt_protocol import BtProto
+from cpu_temperature import getCpuTemp
 
 from color_provider import *
 from pattern_provider import *
@@ -28,10 +29,14 @@ def main():
     #BtConnection() #This automatically starts the receiving thread
 
     q = queue.Queue()
-    btConnection = BtConnection(q).start()
-    btProto = BtProto(q)
+    btConnection = BtConnection(q)
+    btProto = BtProto(q, btConnection)
+
+    btConnection.start()
 
     initSequence()
+
+    iterCount = 0
 
     while True:
         btProto.read()
@@ -42,6 +47,10 @@ def main():
         else:
             neopixelAllOff()
             time.sleep(0.25)
+
+        if iterCount % 10 == 0:
+            btProto.writeTemperature(getCpuTemp())
+        iterCount += 1
 
 
 main()
