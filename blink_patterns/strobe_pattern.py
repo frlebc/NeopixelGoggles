@@ -56,3 +56,29 @@ class StrobeBlinkPausePattern(StrobeBlinkPattern):
         if (self.mIterationCount % 4) == 0:
             TimeFactorInstance.sleep(self.mTimeSleep)
         super().runIteration()
+
+class StrobeLeftRightBlinkPattern(BaseBlinkPattern, BlinkPatternWithColor):
+
+    def __init__(self, pixels, pixelsIndex, color, time1):
+        self.mPixels = pixels
+        self.mPixelsIndex = pixelsIndex
+        self.mColorPattern = color
+        self.mTimeOn = time1
+        self.mIterationCount = 0
+
+    def runIteration(self):
+        self.mIterationCount += 1
+        for i in self.mPixelsIndex:
+            if self.mIterationCount % 2 == 0:
+                if i < len(self.mPixelsIndex) / 2:
+                    self.mPixels[i] = self.mColorPattern.getColor(i)
+                else:
+                    self.mPixels[i] = (0, 0, 0)
+            else:
+                if i < len(self.mPixelsIndex) / 2:
+                    self.mPixels[i] = (0, 0, 0)
+                else:
+                    self.mPixels[i] = self.mColorPattern.getColor(i)
+        self.mPixels.show()
+        TimeFactorInstance.sleep(self.mTimeOn)
+        

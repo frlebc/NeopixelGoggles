@@ -12,12 +12,42 @@ class FullOnRainbowPattern(BaseBlinkPattern):
         self.mIterationCount = 0
         self.mNbCycle = len(pixelsIndex)
 
+    def setColorPattern(self, color):
+        pass
+
     def runIteration(self):
         wCycleIter = self.mIterationCount % len(self.mPixelsIndex)
         wColorIndex = wCycleIter * 256 // len(self.mPixelsIndex)
         for i in range(0, len(self.mPixelsIndex)):
             wIndex = self.mPixelsIndex[i]
             self.mPixels[wIndex] = self.mRainbow.getColor(wColorIndex)
+        self.mPixels.show()
+        TimeFactorInstance.sleep(self.mTime)
+
+        self.mIterationCount += 1
+        self.mIterationCount %= self.mNbCycle
+
+
+class FullOnRainbowChasePattern(BaseBlinkPattern):
+    def __init__(self, pixels, pixelsIndex, time):
+        self.mPixels = pixels
+        self.mPixelsIndex = pixelsIndex
+        self.mTime = time
+        self.mRainbow = RainbowPattern()
+        self.mIterationCount = 0
+        self.mNbCycle = len(pixelsIndex)
+
+    def setColorPattern(self, color):
+        pass
+
+    def runIteration(self):
+        wCycleIter = self.mIterationCount % len(self.mPixelsIndex)
+        wColorIndex = wCycleIter * 256 // len(self.mPixelsIndex)
+        j = 0
+        for i in range(0, len(self.mPixelsIndex)):
+            wIndex = self.mPixelsIndex[i]
+            self.mPixels[wIndex] = self.mRainbow.getColor(wColorIndex + j)
+            j += 16
         self.mPixels.show()
         TimeFactorInstance.sleep(self.mTime)
 

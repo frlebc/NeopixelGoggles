@@ -4,16 +4,14 @@ from blink_patterns.loading_pattern import *
 from blink_patterns.strobe_pattern import *
 from blink_patterns.chase_pattern import *
 
-from full_on_patterns.full_on_pattern import FullOnRainbowPattern #TODO create a list of preset pattern+color
+from full_on_patterns.full_on_pattern import FullOnRainbowChasePattern, FullOnRainbowPattern #TODO create a list of preset pattern+color
 
 from color_patterns.rainbow_pattern import *
 from color_patterns.solid_color_pattern import *
 
 from neopixel_hardware import *
 
-
-PatternsDict = {
-    # Strobe
+StrobeDict = {
     "strobe.full":BlinkPatternRunner([
         StrobeBlinkPattern(pixels, list(range(0, nbPixels)), BluePattern(), 0.02, 0.07),
     ], 8),
@@ -30,8 +28,17 @@ PatternsDict = {
         StrobeRandomPattern(pixels, list(range(0, nbPixels)), RandomPattern(), 0.01, 0.01),
     ], nbPixels),
 
-    # Loading
-    "load.full":BlinkPatternRunner([
+    "strobe.leftright":BlinkPatternRunner([
+        StrobeLeftRightBlinkPattern(pixels, list(range(0, nbPixels)), RandomPattern(), 0.2),
+    ], 4),
+
+    "strobe.leftright.slow":BlinkPatternRunner([
+        StrobeLeftRightBlinkPattern(pixels, list(range(0, nbPixels)), RandomPattern(), 0.5),
+    ], 4),
+}
+
+LoadingDict = {
+        "load.full":BlinkPatternRunner([
         LoadingPattern(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 0.03),
         LoadingPattern(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 0.03),
     ], nbPixels),
@@ -70,8 +77,9 @@ PatternsDict = {
         LoadingPatternHalfReverse(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 0.03),
         LoadingPatternHalf(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 0.03),
     ], nbPixelsPerRing),
+}
 
-    # Chase
+ChaseDict = {
     "chase.1":BlinkPatternRunner([
         ChasePattern(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 1, 0.02),
         ChasePattern(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 1, 0.02)
@@ -85,6 +93,11 @@ PatternsDict = {
     "chase.4":BlinkPatternRunner([
         ChasePattern(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 4, 0.03),
         ChasePattern(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 4, 0.03)
+    ], nbPixels),
+
+    "chase.8":BlinkPatternRunner([
+        ChasePattern(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 8, 0.03),
+        ChasePattern(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 8, 0.03)
     ], nbPixels),
 
     "chase.1.reverse":BlinkPatternRunner([
@@ -102,6 +115,11 @@ PatternsDict = {
         ChasePatternReverse(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 4, 0.03),
     ], nbPixels),
 
+    "chase.8.reverse":BlinkPatternRunner([
+        ChasePatternReverse(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 8, 0.03),
+        ChasePatternReverse(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 8, 0.03),
+    ], nbPixels),
+
     "chase.1.opposite":BlinkPatternRunner([
         ChasePattern(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 1, 0.03),
         ChasePatternReverse(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 1, 0.03)
@@ -115,6 +133,11 @@ PatternsDict = {
     "chase.4.opposite":BlinkPatternRunner([
         ChasePattern(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 4, 0.03),
         ChasePatternReverse(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 4, 0.03)
+    ], nbPixels),
+
+    "chase.8.opposite":BlinkPatternRunner([
+        ChasePattern(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 8, 0.03),
+        ChasePatternReverse(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 8, 0.03)
     ], nbPixels),
 
     "chase.1.opposite.reverse":BlinkPatternRunner([
@@ -131,4 +154,21 @@ PatternsDict = {
         ChasePatternReverse(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 4, 0.03),
         ChasePattern(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 4, 0.03),
     ], nbPixels),
+
+    "chase.8.opposite.reverse":BlinkPatternRunner([
+        ChasePatternReverse(pixels, leftEye.getPixelsIndex(), RainbowPattern(), 8, 0.03),
+        ChasePattern(pixels, rightEye.getPixelsIndex(), RainbowPattern(), 8, 0.03),
+    ], nbPixels),
 }
+
+FullOnDict = {
+    "fullon.rainbow.allsame":BlinkPatternRunner([
+        FullOnRainbowPattern(pixels, list(range(0, nbPixels)), 0.1),
+    ], nbPixels),
+
+    "fullon.rainbow.chase":BlinkPatternRunner([
+        FullOnRainbowChasePattern(pixels, list(range(0, nbPixels)), 0.08),
+    ], nbPixels),
+}
+
+PatternsDict = {**StrobeDict, **LoadingDict, **ChaseDict, **FullOnDict}
