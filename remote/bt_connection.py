@@ -31,14 +31,18 @@ class BtConnection(threading.Thread):
         self.mClientSocket = None
         super().__init__(*args, **kwargs)
 
+    def stopClientThread(self):
+        if self.mClientThread != None:
+                self.mClientThread.shutdown_flag.set()
+                self.mClientThread.join()
+                self.mClientThread = None
+
     def run(self):
         while True:
             self.mClientSocket,wAddress = self.mServerSocket.accept()
             print("BtConnection accepted connection from ", wAddress)
 
-            if self.mClientThread != None:
-                self.mClientThread.shutdown_flag.set()
-                self.mClientThread.join()
+            self.stopClientThread()
 
             self.mClientSocket.settimeout(5) #seconds
             self.mClientThread = ClientThread(self.mQueue, self.mClientSocket)
@@ -48,5 +52,8 @@ class BtConnection(threading.Thread):
 
     def write(self, msg):
         if self.mClientSocket != None:
-            self.mClientSocket.send(msg)
+            try:
+                self.mClientSocket.send(msg)
+            except:
+                self.stopClientThread()
 
