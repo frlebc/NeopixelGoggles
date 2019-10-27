@@ -48,7 +48,7 @@ def main():
             neopixelAllOff()
             time.sleep(0.25)
 
-        if iterCount % 10 == 0:
+        if iterCount % 2 == 0:
             btProto.writeTemperature(getCpuTemp())
         iterCount += 1
 
