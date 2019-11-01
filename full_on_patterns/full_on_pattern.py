@@ -2,6 +2,7 @@ from blink_patterns.blink_pattern import BaseBlinkPattern, BlinkPatternWithColor
 from blink_patterns.time_factor import TimeFactorInstance
 
 from color_patterns.rainbow_pattern import RainbowPattern
+from intensity_provider import IntensityProviderInstance
 
 class FullOnRainbowPattern(BaseBlinkPattern):
     def __init__(self, pixels, pixelsIndex, time):
@@ -20,7 +21,7 @@ class FullOnRainbowPattern(BaseBlinkPattern):
         wColorIndex = wCycleIter * 256 // len(self.mPixelsIndex)
         for i in range(0, len(self.mPixelsIndex)):
             wIndex = self.mPixelsIndex[i]
-            self.mPixels[wIndex] = self.mRainbow.getColor(wColorIndex)
+            self.mPixels[wIndex] = IntensityProviderInstance.applyIntensity(self.mRainbow.getColor(wColorIndex))
         self.mPixels.show()
         TimeFactorInstance.sleep(self.mTime)
 
@@ -46,7 +47,7 @@ class FullOnRainbowChasePattern(BaseBlinkPattern):
         j = 0
         for i in range(0, len(self.mPixelsIndex)):
             wIndex = self.mPixelsIndex[i]
-            self.mPixels[wIndex] = self.mRainbow.getColor(wColorIndex + j)
+            self.mPixels[wIndex] = IntensityProviderInstance.applyIntensity(self.mRainbow.getColor(wColorIndex + j))
             j += 16
         self.mPixels.show()
         TimeFactorInstance.sleep(self.mTime)

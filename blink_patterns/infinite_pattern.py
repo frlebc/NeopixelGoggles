@@ -1,5 +1,6 @@
 from blink_patterns.blink_pattern import BaseBlinkPattern, BlinkPatternWithColor
 from blink_patterns.time_factor import TimeFactorInstance
+from intensity_provider import IntensityProviderInstance
 
 class InfinitePattern(BaseBlinkPattern, BlinkPatternWithColor):
     def __init__(self, pixels, pixelsIndex, time):
@@ -14,7 +15,7 @@ class InfinitePattern(BaseBlinkPattern, BlinkPatternWithColor):
             self.mPixels[wPixelIndex] = (0, 0, 0)
 
         i = seq[self.mIterationCount]
-        self.mPixels[i] = self.mColorPattern.getColor(i)
+        self.mPixels[i] = IntensityProviderInstance.applyIntensity(self.mColorPattern.getColor(i))
         self.mPixels.show()
 
         self.mIterationCount += 1
@@ -25,7 +26,7 @@ class InfinitePattern(BaseBlinkPattern, BlinkPatternWithColor):
 
     def getColor(self, cycleIter):
         wPixelIndex = (cycleIter * 256 // len(self.mPixelsIndex))
-        return self.mColorPattern.getColor(wPixelIndex)
+        return IntensityProviderInstance.applyIntensity(self.mColorPattern.getColor(wPixelIndex))
 
 class InfinitePatternReverse(InfinitePattern):
     def getPixelsToLight(self):
