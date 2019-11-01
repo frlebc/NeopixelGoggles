@@ -28,4 +28,4 @@ def neopixelAllOff():
 
 def neopixelAllOnWhite():
     pixels.fill((255, 255, 255))
-    pixels.show();
+    pixels.show()

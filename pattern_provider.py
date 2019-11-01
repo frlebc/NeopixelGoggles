@@ -2,6 +2,8 @@ import random
 
 from pattern_list import PatternsDict
 
+from pattern_list import InfiniteDict
+
 class PatternProvider:
     def __init__(self):
         self.mPattern = list(PatternsDict.values())[0]
