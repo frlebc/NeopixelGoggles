@@ -1,6 +1,6 @@
 class IntensityProvider:
     def __init__(self):
-        self.mIntensity = 0.25
+        self.mIntensity = 0.15
 
     def setLedIntensity(self, int):
         self.mIntensity = int
