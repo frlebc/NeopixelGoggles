@@ -8,4 +8,4 @@ class AlternateColors(IColorPattern):
 
     def getColor(self, iter):
         self.mCount += 1
-        return self.mColors[self.mCount % len(self.mColors)]
+        return self.applyIntensity(self.mColors[self.mCount % len(self.mColors)])

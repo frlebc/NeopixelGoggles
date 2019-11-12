@@ -5,7 +5,6 @@ from intensity_provider import IntensityProviderInstance
 from rpi_control import rpiControl
 
 def BtHandlerLed(value):
-    print("led ", value)
     ColorProviderInstance.setLedOn(value != "off")
 
 def BtHandlerColorPreset(value):
@@ -21,7 +20,7 @@ def BtHandlerPatternPreset(value):
     PatternProviderInstance.setPattern(value)
 
 def BtHandlerPattern(value):
-    print("Pattern: ", value)
+    pass
 
 def BtHandlerSpeed(value):
     TimeFactorInstance.setFactor(float(value))

@@ -29,8 +29,8 @@ def wheel(pos):
  
 class RainbowPattern(IColorPattern):
     def getColor(self, iter):
-        return wheel(iter & 255)
+        return self.applyIntensity(wheel(iter & 255))
 
 class RandomPattern(IColorPattern):
     def getColor(self, iter):
-        return wheel(random.randint(0, 255))
+        return self.applyIntensity(wheel(random.randint(0, 255)))

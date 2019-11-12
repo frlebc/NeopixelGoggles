@@ -13,7 +13,7 @@ class ClientThread(threading.Thread):
         while not self.shutdown_flag.is_set():
             try:
                 data = self.mSocket.recv(256)
-                print("Received: ", data)
+                # print("Received: ", data)
                 self.mQueue.put(data.decode())
             except:
                 pass # timeout

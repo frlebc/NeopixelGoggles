@@ -12,42 +12,42 @@ ORANGE = (255, 64, 0)
 
 class WhitePattern(IColorPattern):
     def getColor(self, iter):
-        return WHITE
+        return self.applyIntensity(WHITE)
 
 class RedPattern(IColorPattern):
     def getColor(self, iter):
-        return RED
+        return self.applyIntensity(RED)
 
 class GreenPattern(IColorPattern):
     def getColor(self, iter):
-        return GREEN
+        return self.applyIntensity(GREEN)
 
 class BluePattern(IColorPattern):
     def getColor(self, iter):
-        return BLUE
+        return self.applyIntensity(BLUE)
 
 class YellowPattern(IColorPattern):
     def getColor(self, iter):
-        return YELLOW
+        return self.applyIntensity(YELLOW)
 
 class MagentaPattern(IColorPattern):
     def getColor(self, iter):
-        return MAGENTA
+        return self.applyIntensity(MAGENTA)
 
 class CyanPattern(IColorPattern):
     def getColor(self, iter):
-        return CYAN
+        return self.applyIntensity(CYAN)
 
 class PurplePattern(IColorPattern):
     def getColor(self, iter):
-        return PURPLE
+        return self.applyIntensity(PURPLE)
 
 class OrangePattern(IColorPattern):
     def getColor(self, iter):
-        return ORANGE
+        return self.applyIntensity(ORANGE)
 
 class RGBPattern(IColorPattern):
     def __init__(self, rgbTuple):
         self.mRGBTuple = rgbTuple
     def getColor(self, iter):
-        return self.mRGBTuple
+        return self.applyIntensity(self.mRGBTuple)

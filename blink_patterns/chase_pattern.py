@@ -34,7 +34,7 @@ class ChasePattern(BaseBlinkPattern, BlinkPatternWithColor):
 
     def getColor(self, cycleIter):
         wPixelIndex = (cycleIter * 256 // len(self.mPixelsIndex))
-        return IntensityProviderInstance.applyIntensity(self.mColorPattern.getColor(wPixelIndex))
+        return self.mColorPattern.getColor(wPixelIndex)
 
 class ChasePatternReverse(ChasePattern):
     def getPixelsToLight(self):

@@ -17,7 +17,7 @@ class StrobeRandomPattern(BaseBlinkPattern, BlinkPatternWithColor):
     def runIteration(self):
         for i in range(StrobeRandomPattern.cNbPixelsPerIteration):
             wIndex = self.mPixelsIndex[random.randint(0, len(self.mPixelsIndex)-1)]
-            self.mPixels[wIndex] = IntensityProviderInstance.applyIntensity(self.mColorPattern.getColor(random.randint(0, 255)))
+            self.mPixels[wIndex] = self.mColorPattern.getColor(random.randint(0, 255))
         self.mPixels.show()
         TimeFactorInstance.sleep(self.mTimeOn)
         for i in self.mPixelsIndex:
@@ -38,7 +38,7 @@ class StrobeBlinkPattern(BaseBlinkPattern, BlinkPatternWithColor):
 
     def runIteration(self):
         for i in self.mPixelsIndex:
-            self.mPixels[i] = IntensityProviderInstance.applyIntensity(self.mColorPattern.getColor(i))
+            self.mPixels[i] = self.mColorPattern.getColor(i)
         self.mPixels.show()
         TimeFactorInstance.sleep(self.mTimeOn)
         for i in self.mPixelsIndex:
@@ -72,14 +72,14 @@ class StrobeLeftRightBlinkPattern(BaseBlinkPattern, BlinkPatternWithColor):
         for i in self.mPixelsIndex:
             if self.mIterationCount % 2 == 0:
                 if i < len(self.mPixelsIndex) / 2:
-                    self.mPixels[i] = IntensityProviderInstance.applyIntensity(self.mColorPattern.getColor(i))
+                    self.mPixels[i] = self.mColorPattern.getColor(i)
                 else:
                     self.mPixels[i] = (0, 0, 0)
             else:
                 if i < len(self.mPixelsIndex) / 2:
                     self.mPixels[i] = (0, 0, 0)
                 else:
-                    self.mPixels[i] = IntensityProviderInstance.applyIntensity(self.mColorPattern.getColor(i))
+                    self.mPixels[i] = self.mColorPattern.getColor(i)
         self.mPixels.show()
         TimeFactorInstance.sleep(self.mTimeOn)
         
